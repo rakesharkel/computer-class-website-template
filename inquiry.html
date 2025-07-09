@@ -1,0 +1,89 @@
+<?php include 'components/header.php'?>
+
+<div class="inquiry-container">
+
+    <h1>Inquiry Form</h1>
+  
+    <form action="">
+  
+      <div>
+        <label for="firstname">First Name:</label>
+        <input type="text" name="firstName" required>
+      </div>
+  
+      <div>
+        <label for="middlename">Middle Name:</label>
+        <input type="text" name="middleName">
+      </div>
+  
+      <div>
+        <label for="lastname">Last Name:</label>
+        <input type="text" name="lastName" required>
+      </div>
+  
+      <div>
+        <label for="age">Age:</label>
+        <input type="number" name="age" min="5" max="100" required>
+      </div>
+  
+      <div>
+        <label for="contact">Contact No:</label>
+        <input type="text" name="contactNo" required>
+      </div>
+  
+      <div>
+        <label for="Qualification">Qualification:</label>
+        <select name="Qualification" required>
+          <option value="">--Select--</option>
+          <option value="Below 10th">Below 10th</option>
+          <option value="SSC">SSC</option>
+          <option value="HSC">HSC</option>
+          <option value="Graduation">Graduation</option>
+          <option value="Post Graduation">Post Graduation</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+  
+      <div class="full-width">
+        <label for="address">Address:</label>
+        <textarea name="address" required></textarea>
+      </div>
+  
+      <div class="full-width">
+        <label>Interested Courses:</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="CCC" name="course"> CCC</label>
+          <label><input type="checkbox" value="Tally" name="course"> Tally</label>
+          <label><input type="checkbox" value="MS Office" name="course"> MS Office</label>
+          <label><input type="checkbox" value="Photoshop" name="course"> Photoshop</label>
+          <label><input type="checkbox" value="CorelDRAW" name="course"> CorelDRAW</label>
+          <label><input type="checkbox" value="C Programming" name="course"> C Programming</label>
+          <label><input type="checkbox" value="C++" name="course"> C++</label>
+          <label><input type="checkbox" value="HTML/CSS" name="course"> HTML/CSS</label>
+          <label><input type="checkbox" value="JavaScript" name="course"> JavaScript</label>
+          <label><input type="checkbox" value="Bootstrap" name="course"> Bootstrap</label>
+          <label><input type="checkbox" value="PHP" name="course"> PHP</label>
+        </div>
+      </div>
+  
+      <div>
+        <label for="timing">Preferred Time:</label>
+        <select name="timing" required>
+          <option value="">--Select Time--</option>
+          <option value="Morning">Morning</option>
+          <option value="Afternoon">Afternoon</option>
+          <option value="Evening">Evening</option>
+        </select>
+      </div>
+  
+      <div class="full-width">
+        <label><input type="checkbox" name="authorization" required> I accept to submit my details</label>
+      </div>
+  
+      <div class="form-footer">
+        <input type="submit" value="Submit">
+      </div>
+  
+    </form>
+  </div>
+<?php include 'components/footer.php' ?>

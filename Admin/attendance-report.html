@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #ffffff;
+    }
+
+    .dashboard-card {
+      background-color: #e9f0ff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <a href="logout.html" class="btn btn-outline-danger logout-btn">Logout</a>
+    <div class="row min-vh-100">
+      <div class="col-md-2 bg-light p-3">
+        <h4 class="text-center">Admin Panel</h4>
+        <ul class="nav flex-column nav-pills mt-4">
+          <li class="nav-item">
+            <a class="nav-link active" href="dashboard.html">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admission.html">Admission</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="student-report.html">Student Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fees-receipt.html">Fees Receipt</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="attendance-report.html">Attendance Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notice-board.html">Notice Board</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Monthly-exam.html">Monthly Exam</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="inquiry-report.html">Inquiry Report</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-10 p-4">
+
+        <!-- Daily Attendance -->
+        <h4 class="section-title mt-5">Regular Attendance</h4>
+        <div class="card p-4 shadow-sm mb-4">
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <label for="attendanceDate" class="form-label">Attendance Date</label>
+              <input type="date" class="form-control" id="attendanceDate" required>
+            </div>
+            <div class="col-md-8">
+              <label for="courseSelect" class="form-label">Select Course</label>
+              <select class="form-select" id="courseSelect" onchange="loadStudents()">
+                <option selected disabled>Select a course</option>
+                <option value="Web Design">Web Design</option>
+                <option value="Python">Python</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="attendanceTableContainer" style="display: none;">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped align-middle">
+                <thead class="table-success text-center">
+                  <tr>
+                    <th>Registration No.</th>
+                    <th>Student Name</th>
+                    <th>Absent</th>
+                    <th>Present</th>
+                  </tr>
+                </thead>
+                <tbody id="attendanceBody"></tbody>
+              </table>
+            </div>
+            <button class="btn btn-success mt-3 float-end" onclick="saveAttendance()">Save Attendance</button>
+          </div>
+        </div>
+
+        <!-- Monthly Attendance Summary -->
+        <h4 class="section-title mt-5">Monthly Attendance Summary</h4>
+        <div class="card p-4 shadow-sm mb-4" id="monthlyAttendanceContainer" style="display: none;">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle">
+              <thead class="table-info text-center" id="monthlyHeader">
+                <tr>
+                  <th rowspan="2" class="align-middle">Reg. No.</th>
+                  <th rowspan="2" class="align-middle">Admission Date</th>
+                  <th rowspan="2" class="align-middle">Student Name</th>
+                  <th colspan="31">Date</th>
+                  <th rowspan="2" class="align-middle">Total Absent</th>
+                </tr>
+                <tr id="dateRow"></tr>
+              </thead>
+              <tbody id="monthlyAttendanceBody"></tbody>
+            </table>
+          </div>
+
+        </div>
+        <button class="btn btn-outline-primary mt-3 float-end" onclick="downloadMonthlyAttendance()">Download
+          Excel</button>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Auto-fill current date
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("attendanceDate").value = new Date().toISOString().split("T")[0];
+    });
+
+    const studentData = {
+      "Web Design": [
+        { reg: "101", name: "Kiran Patel" },
+        { reg: "104", name: "Hardik Shah" }
+      ],
+      "Python": [
+        { reg: "102", name: "Anjali Patel" },
+        { reg: "106", name: "Nirav Shah" }
+      ]
+    };
+
+    const monthlyAttendanceData = {
+      "Web Design": {
+        "101": {
+          name: "Kiran Patel",
+          admissionDate: "2024-03-01",
+          dates: {
+            1: "P", 2: "P", 3: "A", 4: "P", 5: "P",
+            6: "P", 7: "P", 8: "A", 9: "P", 10: "P"
+          }
+        },
+        "104": {
+          name: "Hardik Shah",
+          admissionDate: "2024-04-12",
+          dates: {
+            1: "P", 2: "A", 3: "P", 4: "P", 5: "A",
+            6: "P", 7: "A", 8: "P", 9: "P", 10: "P"
+          }
+        }
+      },
+      "Python": {
+        "102": {
+          name: "Anjali Patel",
+          admissionDate: "2024-03-15",
+          dates: {
+            1: "A", 2: "P", 3: "P", 4: "P", 5: "P"
+          }
+        }
+      }
+    };
+
+    function loadStudents() {
+      const course = document.getElementById("courseSelect").value;
+      const container = document.getElementById("attendanceTableContainer");
+      const tbody = document.getElementById("attendanceBody");
+      tbody.innerHTML = "";
+
+      studentData[course].forEach(student => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td class="text-center">${student.reg}</td>
+          <td>${student.name}</td>
+          <td class="text-center"><input type="checkbox" class="form-check-input absent-checkbox" onchange="toggleAttendance(this)"></td>
+          <td class="text-center"><input type="checkbox" class="form-check-input present-checkbox" checked onchange="toggleAttendance(this)"></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      container.style.display = "block";
+      showMonthlySummary(course);
+    }
+
+    function toggleAttendance(checkbox) {
+      const row = checkbox.closest("tr");
+      const absent = row.querySelector(".absent-checkbox");
+      const present = row.querySelector(".present-checkbox");
+
+      if (checkbox === absent && absent.checked) present.checked = false;
+      else if (checkbox === present && present.checked) absent.checked = false;
+      else if (!absent.checked && !present.checked) present.checked = true;
+    }
+
+    function saveAttendance() {
+      const rows = document.querySelectorAll("#attendanceBody tr");
+      const attendanceDate = document.getElementById("attendanceDate").value;
+      const course = document.getElementById("courseSelect").value;
+      const day = new Date(attendanceDate).getDate();
+
+      rows.forEach(row => {
+        const regNo = row.cells[0].innerText;
+        const name = row.cells[1].innerText;
+        const isAbsent = row.querySelector(".absent-checkbox").checked;
+        const status = isAbsent ? "A" : "P";
+
+        if (!monthlyAttendanceData[course]) monthlyAttendanceData[course] = {};
+        if (!monthlyAttendanceData[course][regNo]) {
+          monthlyAttendanceData[course][regNo] = {
+            name: name,
+            admissionDate: attendanceDate,
+            dates: {}
+          };
+        }
+
+        monthlyAttendanceData[course][regNo].dates[day] = status;
+      });
+
+      alert(`Attendance saved for ${course} on ${attendanceDate}`);
+      showMonthlySummary(course);
+    }
+
+    function generateDateHeaders() {
+      const dateRow = document.getElementById("dateRow");
+      dateRow.innerHTML = "";
+      for (let d = 1; d <= 31; d++) {
+        const th = document.createElement("th");
+        th.textContent = d;
+        dateRow.appendChild(th);
+      }
+    }
+
+    function showMonthlySummary(course) {
+      generateDateHeaders();
+      const tbody = document.getElementById("monthlyAttendanceBody");
+      const data = monthlyAttendanceData[course];
+      tbody.innerHTML = "";
+
+      if (!data) return;
+
+      for (const reg in data) {
+        const student = data[reg];
+        let totalAbsent = 0;
+        let cells = "";
+
+        for (let d = 1; d <= 31; d++) {
+          const mark = student.dates[d] || "";
+          if (mark === "A") totalAbsent++;
+          cells += `<td class="text-center">${mark}</td>`;
+        }
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td class="text-center">${reg}</td>
+          <td class="text-center">${student.admissionDate}</td>
+          <td>${student.name}</td>
+          ${cells}
+          <td class="text-center">${totalAbsent}</td>
+        `;
+        tbody.appendChild(row);
+      }
+
+      document.getElementById("monthlyAttendanceContainer").style.display = "block";
+    }
+  </script>
+
+  <script>
+    function downloadMonthlyAttendance() {
+      const table = document.querySelector("#monthlyAttendanceContainer table");
+      const workbook = XLSX.utils.table_to_book(table, { sheet: "Monthly Attendance" });
+      const currentDate = new Date().toISOString().split("T")[0];
+      XLSX.writeFile(workbook, `Monthly-Attendance-${currentDate}.xlsx`);
+    }
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</body>
+
+</html>
