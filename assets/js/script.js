@@ -77,24 +77,24 @@ const albums = {
     album1: {
         title: "Summer Memories",
         images: [
-            "assets/images/insta 1.jpg",
-            "assets/images/insta 4.jpg",
-            "assets/images/insta 6.jpg"
+            "assets/images/Photo.jpg",
+            "assets/images/Photo.jpg",
+            "assets/images/Photo.jpg"
         ]
     },
     album2: {
         title: "Winter Wonders",
         images: [
-            "assets/images/insta 2.jpg",
-            "assets/images/insta 5.jpg"
+            "assets/images/Photo.jpg",
+            "assets/images/Photo.jpg"
         ]
     },
     album3: {
         title: "Nature Shots",
         images: [
-            "assets/images/insta 3.jpg",
-            "assets/images/insta 1.jpg",
-            "assets/images/insta 5.jpg"
+            "assets/images/Photo.jpg",
+            "assets/images/Photo.jpg",
+            "assets/images/Photo.jpg"
         ]
     }
 };
