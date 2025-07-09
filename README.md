@@ -1,55 +1,50 @@
 # computer-class-website-template
 
-# Template Website
+# Website Template - Frontend + Admin Panel
 
-This is a responsive multi-page website template that includes both a frontend and an admin dashboard interface. It can be used for institutions like coaching centers, computer classes, or any educational platform.
+This is a complete website template that includes both a frontend website and an admin dashboard. It’s mainly designed for educational institutions like computer classes or training centers but can be customized for other uses too.
 
-## 📁 Folder Structure
+## What's Included
 
-
-## 🌐 Pages Overview
-
-### Frontend Pages
-- `index.html` – Home page
-- `about.html` – About Us
-- `contact.html` – Contact page
-- `gallery.html` – Image Gallery
+### Frontend Pages:
+- `index.html` – Main homepage
+- `about.html` – About the institute
+- `contact.html` – Contact form and details
+- `gallery.html` – Photo gallery
 - `inquiry.html` – Inquiry form
-- `teams.html` – Team or Staff page
-- `demo.html`, `demo2.html` – Demo/sample pages
+- `teams.html` – Team or staff information
+- `demo.html`, `demo2.html` – Extra demo/sample pages
 
-### Admin Dashboard
-- `Admin/login.html` – Admin login
-- `Admin/dashboard.html` – Admin dashboard home
-- `Admin/admission.html` – Admission form
-- `Admin/fees-receipt.html` – Fees receipt page
-- `Admin/inquiry-report.html` – Inquiry reports
-- `Admin/attendance-report.html` – Attendance reports
+### Admin Panel:
+Located inside the `Admin/` folder:
+- `login.html` – Login page for admin
+- `dashboard.html` – Main dashboard view
+- `admission.html` – New student admission form
+- `fees-receipt.html` – Fees receipt page
+- `inquiry-report.html` – View submitted inquiries
+- `attendance-report.html` – Attendance management
 
-## 🛠️ Technologies Used
-- HTML5, CSS3, JavaScript
-- Bootstrap (for responsiveness)
-- jQuery (optional scripts)
+## How to Use
 
-## 🔧 How to Use
+1. Just unzip the folder.
+2. Open `index.html` in any browser to see the main site.
+3. For admin, go to `Admin/login.html`.
+4. You can modify HTML, CSS, and JS files as per your need.
+5. All images, CSS, and JS files are placed in their respective folders inside `assets/` (if present).
 
-1. Extract the ZIP file.
-2. Open `index.html` in your browser to view the homepage.
-3. Navigate to `Admin/login.html` for the admin panel.
-4. Customize content, styles, and scripts based on your use case.
+## Technologies Used
 
-## 💡 Customization Tips
+- HTML, CSS, JS
+- Bootstrap for layout and responsiveness
+- jQuery (used in some pages for functionality)
 
-- Modify logo and images in the `/assets/images/` folder.
-- Edit styles in `/assets/css/` for design changes.
-- Update navigation and content in each `.html` file as needed.
+## Notes
 
-## 📸 Preview
-
-You can use a local web server like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in VS Code for live preview.
+- The design is responsive.
+- Easy to customize.
+- Can be integrated with PHP/MySQL for backend.
+- Good base for student/institution-based projects.
 
 ---
 
-**Author:** Your Name  
-**Version:** 1.0  
-**License:** Free for personal/commercial use with attribution
+Created for personal or small client projects. Feel free to modify and use.
